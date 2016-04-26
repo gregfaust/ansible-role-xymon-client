@@ -1,0 +1,3 @@
+---
+xymon_service_name: xymon-client
+xymon_servers: [ "10.10.10.10" ]

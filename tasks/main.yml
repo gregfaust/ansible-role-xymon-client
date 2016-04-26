@@ -1,0 +1,17 @@
+---
+- name: include vars
+  include_vars: main.yml
+  tags: [ 'configuration', 'package', 'service', 'xymon-client' ]
+
+- name: install packages
+  apt: name={{ xymon_pkg_name }} state={{ xymon_pkg_state }}
+  tags: [ 'package', 'xymon-client' ]
+
+- name: render the xymon-client (configuration) template
+  template: src=xymon-client.j2 dest=/etc/default/xymon-client
+  tags: [ 'configuration', 'package', 'xymon' ]
+  notify: restart xymon
+
+- name: ensure xymon-client service is enabled
+  service: name={{ xymon_service_name }} state={{ xymon_service_state }} enabled={{ xymon_service_enabled }} pattern='/xymon-clinet'
+  tags: [ 'service', 'xymon' ]
