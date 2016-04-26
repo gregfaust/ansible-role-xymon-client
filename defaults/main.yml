@@ -1,7 +1,8 @@
 ---
 xymon_pkg_name: 'xymon-client'
 xymon_pkg_state: 'installed'
+xymon_service_name: 'xymon-client'
 xymon_service_state: 'started'
 xymon_service_enabled: 'yes'
-
 xymon_config_server: [ 'xymon' ]
+xymon_servers: [ '10.10.10.10' ]
