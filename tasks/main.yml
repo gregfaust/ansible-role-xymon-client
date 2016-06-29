@@ -1,13 +1,13 @@
 ---
 - name: install packages
   apt: name={{ xymon_pkg_name }} state={{ xymon_pkg_state }}
-  tags: [ 'configuration', 'package', 'service', 'xymon-client' ]
+  tags: [ 'package', 'xymon-client' ]
 
 - name: render the xymon-client (configuration) template
   template: src=xymon-client.j2 dest=/etc/default/xymon-client
-  tags: [ 'configuration', 'package', 'service', 'xymon-client' ]
+  tags: [ 'configuration', 'xymon-client' ]
   notify: restart xymon
 
 - name: ensure xymon-client service is enabled
-  service: name={{ xymon_service_name }} state={{ xymon_service_state }} enabled={{ xymon_service_enabled }} pattern='/xymon-clinet'
-  tags: [ 'configuration', 'package', 'service', 'xymon-client' ]
+  service: name={{ xymon_service_name }} state={{ xymon_service_state }} enabled={{ xymon_service_enabled }}
+  tags: [ 'service', 'xymon-client' ]

@@ -1,5 +1,5 @@
 xymon-client
-===
+============
 
 This role enables users to install and configure xymon-client on their ubuntu
 trusty hosts.
@@ -25,7 +25,7 @@ Examples
 	- hosts: all
 	  roles:
 	    - role: xymon-client
-              xymon_servers: [ "10.0.15.11" ]
+              xymon_servers: [ "10.0.15.10" ]
 
 License
 -------
