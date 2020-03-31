@@ -8,8 +8,8 @@ Requirements
 ------------
 
 Platform requirements are listed in the metadata file.  Xymon best practice is
-to hard-code the server's IP(s) rather than relying on DNS.  In this manner
-Xymon can monitor DNS and will still work properly in the event of an DSN fail.
+to hard-code the server's IP(s) rather than relying on DNS.  In this manner,
+Xymon can monitor DNS and will still work properly in the event of an DNS failure.
 
 Examples
 --------
