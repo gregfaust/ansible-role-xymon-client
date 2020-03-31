@@ -17,7 +17,7 @@ GEM
       mixlib-config (~> 2.0)
       mixlib-shellout (~> 2.0)
     diff-lcs (1.2.5)
-    excon (0.50.1)
+    excon (0.73.0)
     ffi (1.9.10)
     ffi-yajl (2.2.3)
       libyajl2 (~> 1.2)
