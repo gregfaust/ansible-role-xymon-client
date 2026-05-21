@@ -15,3 +15,42 @@
 - name: Ensure xymon-client service is enabled
   service: name={{ xymon_service_name }} state={{ xymon_service_state }} enabled={{ xymon_service_enabled }}
   tags: [ 'service', 'xymon-client' ]
+
+- name: Validate xymon-client installation (optional)
+  when: xymon_validate | bool
+  block:
+    - name: Validate xymon-client package is installed
+      command: dpkg --status {{ xymon_pkg_name }}
+      register: pkg_status
+      changed_when: false
+      failed_when: false
+
+    - name: Validate xymon-client config file exists
+      stat: path=/etc/default/xymon-client
+      register: config_file
+
+    - name: Validate xymon-client service is running
+      command: systemctl is-active {{ xymon_service_name }}
+      register: svc_active
+      changed_when: false
+      failed_when: false
+
+    - name: Validate xymon-client service is enabled
+      command: systemctl is-enabled {{ xymon_service_name }}
+      register: svc_enabled
+      changed_when: false
+      failed_when: false
+
+    - name: Fail if validation checks did not pass
+      fail:
+        msg: >
+          xymon-client validation failed:
+          package installed={{ pkg_status.rc == 0 }},
+          config exists={{ config_file.stat.exists }},
+          service active={{ svc_active.stdout == "active" }},
+          service enabled={{ svc_enabled.stdout == "enabled" }}
+      when: >
+        pkg_status.rc != 0 or
+        not config_file.stat.exists or
+        svc_active.stdout != "active" or
+        svc_enabled.stdout != "enabled"

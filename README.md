@@ -1,31 +1,64 @@
 xymon-client
 ============
 
-This role enables users to install and configure xymon-client on their ubuntu
-trusty hosts.
+This role installs and configures the xymon-client monitoring agent on Ubuntu hosts.
 
 Requirements
 ------------
 
-Platform requirements are listed in the metadata file.  Xymon best practice is
-to hard-code the server's IP(s) rather than relying on DNS.  In this manner,
-Xymon can monitor DNS and will still work properly in the event of an DNS failure.
+- Ansible >= 2.15
+- Ubuntu (see meta/main.yml for supported versions)
+
+Xymon best practice is to hard-code the server's IP(s) rather than relying on
+DNS, so that Xymon can still monitor DNS even during DNS failures.
+
+Role Variables
+--------------
+
+| Variable              | Default            | Description                         |
+|-----------------------|--------------------|-------------------------------------|
+| `xymon_pkg_name`      | `xymon-client`   | Package name to install             |
+| `xymon_pkg_state`     | `present`        | Package state                       |
+| `xymon_service_name`  | `xymon-client`   | Service name                        |
+| `xymon_service_state` | `started`        | Desired service state               |
+| `xymon_service_enabled` | `yes`          | Enable service on boot              |
+| `xymon_servers`       | `["10.0.15.10"]` | List of Xymon server IPs            |
+| `xymon_validate`      | `false`          | Run post-install validation checks  |
+
+Validation runs four checks (package installed, config file exists, service
+running, service enabled) and fails the playbook if any check does not pass.
+Set `xymon_validate: true` to enable it.
 
 Examples
 --------
 
-1) Install and configure xymon-client based on defaults and variables.
+1) Install and configure xymon-client with defaults.
 
-	- hosts: all
-	  roles:
-	    - role: xymon-client
+```yaml
+- hosts: all
+  roles:
+    - role: xymon-client
+```
 
-2) Install xymon-client and set some custom servers.
+2) Set custom Xymon servers.
 
-	- hosts: all
-	  roles:
-	    - role: xymon-client
-              xymon_servers: [ "10.0.15.10" ]
+```yaml
+- hosts: all
+  roles:
+    - role: xymon-client
+      xymon_servers:
+        - 10.0.15.10
+        - 10.0.15.11
+```
+
+3) Run validation after installation.
+
+```yaml
+- hosts: all
+  roles:
+    - role: xymon-client
+      xymon_validate: true
+```
 
 License
 -------

@@ -4,7 +4,8 @@ xymon_pkg_state: 'present'
 xymon_service_state: 'started'
 xymon_service_enabled: 'yes'
 
-xymon_config_server: [ 'xymon' ]
-
 xymon_service_name: xymon-client
 xymon_servers: [ "10.0.15.10" ]
+
+# Set to true to run validation checks after installation
+xymon_validate: false

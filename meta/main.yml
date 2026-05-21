@@ -2,11 +2,13 @@
 galaxy_info:
   author: "Greg Faust"
   license: BSD
-  min_ansible_version: 2.0.0
+  min_ansible_version: '2.15'
   platforms:
    - name: Ubuntu
      versions:
-      - trusty
+      - jammy
+      - noble
+      - resolute
   categories:
    - system
 dependencies: []
